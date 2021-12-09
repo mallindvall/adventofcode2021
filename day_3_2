@@ -1,0 +1,69 @@
+def read_list_for_day_3():
+        with open('input_data_day3.txt') as file_day3:
+            sf_binary_values = [line for line in file_day3]
+
+        x = 0
+
+        res_oxygen = day_3_2(sf_binary_values, x)
+        print(res_oxygen)
+        res_co2 = day_3_2_Co2(sf_binary_values, x)
+        print(res_co2)
+
+        print(int(res_oxygen,2) * int(res_co2,2))      
+
+def day_3_2(sf_binary_values, x):
+
+    if len(sf_binary_values) == 1:
+        return sf_binary_values[0]
+
+    list_of_extracted_values = []
+
+    value_1 = 0
+    value_0 = 0
+    
+    for i in sf_binary_values:
+        if (i[x]) == '1':
+            value_1 += 1
+        if (i[x]) == '0':
+            value_0 += 1
+    if value_1 >= value_0:
+        for y in sf_binary_values:
+            if (y[x]) == '1':
+                list_of_extracted_values.append(y)
+    if value_1 < value_0:
+        for y in sf_binary_values:
+            if y[x] == '0':
+                list_of_extracted_values.append(y)
+             
+
+
+    return day_3_2(list_of_extracted_values, x +1)
+
+
+def day_3_2_Co2(sf_binary_values, x):
+
+    if len(sf_binary_values) == 1:
+        return sf_binary_values[0]
+
+    list_of_extracted_values = []
+
+    value_1 = 0
+    value_0 = 0
+    
+    for i in sf_binary_values:
+        if (i[x]) == '1':
+            value_1 += 1
+        if (i[x]) == '0':
+            value_0 += 1
+    if value_1 >= value_0:
+        for y in sf_binary_values:
+            if (y[x]) == '0':
+                list_of_extracted_values.append(y)
+    if value_1 < value_0:
+        for y in sf_binary_values:
+            if y[x] == '1':
+                list_of_extracted_values.append(y)
+             
+
+
+    return day_3_2_Co2(list_of_extracted_values, x +1)
