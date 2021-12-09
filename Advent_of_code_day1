@@ -1,0 +1,38 @@
+def advent_day1_Count_increased():
+
+    with open('depth_measurement_day1_1.txt') as file:
+        lines = file.readlines()
+        
+        
+        lines = [int(i) for i in lines]
+        increase_check(lines)
+
+
+def increase_check(lines):
+
+    sum_list = []
+    
+    for i in range(0, len(lines), 1):
+        try:
+            sum_of_three_values = lines[i] + lines[i + 1] + lines[i + 2]
+            sum_list.append(sum_of_three_values)
+        except:
+            print('tst')
+
+    print(len(sum_list))
+    print(len(lines))
+    
+    difference_check_values = [sum_list[i+1]-sum_list[i] for i in range(len(sum_list)-1)]
+    pos_count = 0
+    neg_count = 0
+
+    print(difference_check_values)
+
+    for num in difference_check_values:
+        if num > 0:
+            pos_count += 1
+        else:
+            neg_count += 1
+
+    print("Number of increase: ", pos_count)
+    print("Number of non-increase ", neg_count)
