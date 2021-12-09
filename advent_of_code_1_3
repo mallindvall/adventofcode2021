@@ -1,0 +1,43 @@
+def day_3_1():
+
+
+    gamma_digit = ''
+    epsilon_digit = ''
+
+    with open('input_data_day3.txt') as file_day3:
+        sf_binary_values = [line for line in file_day3]
+
+    
+    for j in range(0, len(sf_binary_values[0]) -1, 1):
+        value_1 = 0
+        value_0 = 0
+        for i in sf_binary_values:
+            if (i[j]) == '1':
+                value_1 += 1
+            if (i[j]) == '0':
+                value_0 += 1
+        if value_1 > value_0:
+            gamma_digit = gamma_digit + '1'
+            epsilon_digit = epsilon_digit + '0'
+        else: 
+            gamma_digit = gamma_digit + '0'
+            epsilon_digit = epsilon_digit + '1'
+    
+    print('gamma digit: ', gamma_digit, ' epsilon_digit: ', epsilon_digit)
+
+    power_consumption = int(gamma_digit,2)*int(epsilon_digit,2)
+    print(power_consumption)
+
+     
+
+
+
+              
+
+def main():
+  #advent_day_2()
+  #calculate_coordinates()
+  day_3_1()
+  
+
+main()
