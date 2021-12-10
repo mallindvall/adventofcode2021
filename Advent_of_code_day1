@@ -17,7 +17,7 @@ def increase_check(lines):
             sum_of_three_values = lines[i] + lines[i + 1] + lines[i + 2]
             sum_list.append(sum_of_three_values)
         except:
-            print('tst')
+            print('tsts')
 
     print(len(sum_list))
     print(len(lines))
