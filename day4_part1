@@ -1,0 +1,110 @@
+
+from day4_class import bingo_board
+
+def readBingoValues():
+
+    sf_bingo_values = []
+    bingo_row = []
+    tmp_board = []
+    bingo_boards = []
+
+
+    file = open('day4_1_bingo_values.txt', 'r')
+    for line in file:
+        sf_bingo_values.append(line)
+
+    for row in sf_bingo_values:
+        if row != '\n':
+            bingo_row = row.split(" ")
+            bingo_row = [i.strip() for i in bingo_row]
+            bingo_row = list(filter(None, bingo_row))
+            tmp_board.append(bingo_row)           
+        else:
+            bingo_boards.append(create_bingo_object(tmp_board))
+            tmp_board = []
+
+    return bingo_boards
+
+
+def create_bingo_object(tmp_board):
+
+    bb = bingo_board(tmp_board)
+     
+    return bb
+
+
+def read_input_bingo_numbers():
+
+    input_bingo_numbers = []
+
+    file_input = open('day4_1_Input_values.txt', 'r')
+    for number in file_input:
+        input_bingo_numbers = number.split(",")
+    
+    return input_bingo_numbers
+
+
+def bingo_check(input_bingo_numbers, bingo_board):
+    for num in input_bingo_numbers:
+        for board in bingo_board:
+            board.check_input_against_board(num)
+            if board.check_if_bingo():
+                return board.get_score(num)
+            
+
+def main():
+    input_bingo_numbers = read_input_bingo_numbers()
+    bingo_boards = readBingoValues()
+    bingo_check(input_bingo_numbers, bingo_boards)  
+
+    
+
+main()
+
+
+
+
+class bingo_board: 
+    def __init__(self, bingo_row): 
+        self.bingo_row = bingo_row
+        
+
+    def get_bingo_board(self):
+        return self.bingo_row
+
+
+    def check_input_against_board(self,input_bingo_numbers):
+        for indexrow in range(0, len(self.bingo_row[0]), 1):
+            for columnrow in range(0, len(self.bingo_row),1):
+                if input_bingo_numbers == self.bingo_row[indexrow][columnrow]:
+                    self.bingo_row[indexrow][columnrow] = 'x'                
+                        
+    
+    def check_if_bingo(self):
+     
+        for indexrow in range(0, len(self.bingo_row[0]), 1):
+            bingo_counter_row = 0
+            for columnindex in range(0, len(self.bingo_row), 1):
+                if self.bingo_row[indexrow][columnindex] == 'x':
+                   bingo_counter_row += 1 
+                   if bingo_counter_row == 5:
+                       return True
+
+        for columnindex in range(0, len(self.bingo_row), 1):
+            bingo_counter_column = 0
+            for indexrow in range(0, len(self.bingo_row[0]), 1):
+                if self.bingo_row[indexrow][columnindex] == 'x':
+                   bingo_counter_column += 1  
+                   if bingo_counter_column == 5:
+                       return True  
+        return False
+
+
+    def get_score(self, num):
+        total_value = 0
+
+        for row in self.bingo_row:
+            for value in row:
+                if value != 'x':
+                    total_value += int(value)
+        print(total_value * int(num))
